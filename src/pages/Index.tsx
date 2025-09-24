@@ -1,8 +1,10 @@
 import { ChatWindow } from "@/components/ChatWindow";
 
-// Responsive sizes: large on desktop, scale down on mobile/tablet
-const IMAGE_BOX_WIDTH = 800; // px (30% wider than 650)
-const IMAGE_BOX_HEIGHT = 1125; // px (50% taller than 750)
+// Responsive sizes: scale down smoothly, never cut off
+const IMAGE_BOX_MAX_WIDTH = 800;
+const IMAGE_BOX_MAX_HEIGHT = 1125;
+const IMAGE_BOX_MIN_WIDTH = 320;
+const IMAGE_BOX_MIN_HEIGHT = 320;
 
 const workflowImages = [
   "/src/assets/Orchestration.png",
@@ -27,17 +29,21 @@ const Index = () => {
           </span>
         </h1>
       </header>
-      <main className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-[1700px] mx-auto px-2">
+      <main className="flex flex-col md:flex-row items-center justify-center gap-8 w-full mx-auto px-2"
+        style={{
+          maxWidth: `min(100vw, ${2 * IMAGE_BOX_MAX_WIDTH + 64}px)`,
+        }}
+      >
         <div className="flex-1 flex items-center justify-center w-full">
           <div
             className="bg-white rounded-2xl shadow-xl border-4 border-white overflow-hidden flex items-center justify-center"
             style={{
-              width: IMAGE_BOX_WIDTH,
-              height: IMAGE_BOX_HEIGHT,
-              minWidth: 320,
-              minHeight: 320,
-              maxWidth: "100vw",
-              maxHeight: "80vh",
+              width: "clamp(320px, 45vw, 800px)",
+              height: "clamp(320px, 63vw, 1125px)",
+              minWidth: IMAGE_BOX_MIN_WIDTH,
+              minHeight: IMAGE_BOX_MIN_HEIGHT,
+              maxWidth: IMAGE_BOX_MAX_WIDTH,
+              maxHeight: IMAGE_BOX_MAX_HEIGHT,
             }}
           >
             <img
@@ -52,12 +58,12 @@ const Index = () => {
           <div
             className="w-full h-full flex items-center justify-center"
             style={{
-              width: IMAGE_BOX_WIDTH,
-              height: IMAGE_BOX_HEIGHT,
-              minWidth: 320,
-              minHeight: 320,
-              maxWidth: "100vw",
-              maxHeight: "80vh",
+              width: "clamp(320px, 45vw, 800px)",
+              height: "clamp(320px, 63vw, 1125px)",
+              minWidth: IMAGE_BOX_MIN_WIDTH,
+              minHeight: IMAGE_BOX_MIN_HEIGHT,
+              maxWidth: IMAGE_BOX_MAX_WIDTH,
+              maxHeight: IMAGE_BOX_MAX_HEIGHT,
             }}
           >
             <ChatWindow />
@@ -68,7 +74,7 @@ const Index = () => {
       <section
         className="w-full flex flex-col items-center bg-white rounded-2xl shadow-lg mt-12 px-4 sm:px-8 py-10"
         style={{
-          maxWidth: 2 * IMAGE_BOX_WIDTH + 64,
+          maxWidth: `min(100vw, ${2 * IMAGE_BOX_MAX_WIDTH + 64}px)`,
         }}
       >
         <h2 className="text-3xl font-bold mb-6 text-gray-900 text-center">
@@ -95,16 +101,16 @@ const Index = () => {
             <h3 className="font-semibold text-xl mb-3 text-blue-700">Core Components</h3>
             <div className="mb-2">
               <span className="font-bold">Orchestration Agent:</span>
-              <ul className="list-disc ml-6 text-gray-700">
+              <ul className="list-disc ml-6 text-gray-700 space-y-1">
                 <li>Built with OpenAI’s LLM as the underlying chat model.</li>
                 <li>Uses a Simple Memory module for context across turns.</li>
                 <li>Tools: Q&amp;A Agent, Calendar Agent, Think Tool (for reasoning).</li>
-                <li className="text-gray-500 text-sm mt-1">Prompting strategy: orchestrator only routes, never executes tasks.</li>
+                <li>Prompting strategy: orchestrator only routes, never executes tasks.</li>
               </ul>
             </div>
             <div className="mb-2">
               <span className="font-bold">Q&amp;A Agent (with RAG):</span>
-              <ul className="list-disc ml-6 text-gray-700">
+              <ul className="list-disc ml-6 text-gray-700 space-y-1">
                 <li>Docs uploaded from Google Drive, chunked &amp; embedded with OpenAI, stored in vector DB.</li>
                 <li>Retrieves relevant chunks for grounded answers.</li>
                 <li>Prompt ensures professional, on-topic responses.</li>
@@ -112,7 +118,7 @@ const Index = () => {
             </div>
             <div>
               <span className="font-bold">Calendar Agent:</span>
-              <ul className="list-disc ml-6 text-gray-700">
+              <ul className="list-disc ml-6 text-gray-700 space-y-1">
                 <li>Checks availability and books via Google Calendar (OAuth secured).</li>
                 <li>Never commits to availability without checking.</li>
               </ul>
@@ -122,7 +128,7 @@ const Index = () => {
         <div className="w-full flex flex-col md:flex-row gap-10 mb-10">
           <div className="flex-1 bg-gray-50 rounded-xl p-6 shadow-sm">
             <h3 className="font-semibold text-xl mb-3 text-blue-700">Deployment</h3>
-            <ul className="list-disc list-inside text-gray-700 mb-3">
+            <ul className="list-disc list-inside text-gray-700 mb-3 space-y-1">
               <li>Embedded via CDN onto a website built with Dyad’s Vibe coding environment.</li>
               <li>Recruiters can ask questions (Q&amp;A agent) and book intro calls (Calendar agent).</li>
             </ul>
