@@ -1,4 +1,3 @@
-import { MadeWithDyad } from "@/components/made-with-dyad";
 import { ChatWindow } from "@/components/ChatWindow";
 
 const Index = () => {
@@ -33,9 +32,6 @@ const Index = () => {
           <ChatWindow />
         </div>
       </main>
-      <div className="mt-8">
-        <MadeWithDyad />
-      </div>
     </div>
   );
 };
