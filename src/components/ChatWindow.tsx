@@ -19,8 +19,14 @@ export const ChatWindow: React.FC = () => {
       document.head.appendChild(link);
     }
 
+    // Remove any previous script to allow re-initialization if needed
+    const prevScript = document.getElementById(N8N_SCRIPT_ID);
+    if (prevScript) {
+      prevScript.remove();
+    }
+
     // Inject script if not already present
-    if (!document.getElementById(N8N_SCRIPT_ID) && chatContainerRef.current) {
+    if (chatContainerRef.current) {
       const script = document.createElement("script");
       script.id = N8N_SCRIPT_ID;
       script.type = "module";
@@ -29,7 +35,20 @@ export const ChatWindow: React.FC = () => {
         createChat({
           webhookUrl: '${N8N_WEBHOOK_URL}',
           mode: "fullscreen",
-          target: "#n8n-chat-fullscreen"
+          target: "#n8n-chat-fullscreen",
+          initialMessages: [
+            "Hi there! 👋",
+            "What do you want to know about Matt or when do you want to talk with him?"
+          ],
+          i18n: {
+            en: {
+              title: "Hi there! 👋",
+              subtitle: "Matt built me to answer your questions or book an intro call.",
+              footer: "",
+              getStarted: "New Conversation",
+              inputPlaceholder: "Type your question.."
+            }
+          }
         });
       `;
       document.body.appendChild(script);
