@@ -7,9 +7,9 @@ const IMAGE_BOX_MIN_WIDTH = 320;
 const IMAGE_BOX_MIN_HEIGHT = 320;
 
 const workflowImages = [
-  "/Orchestration.png",
-  "/Q&A Agent.png",
-  "/Calendar Agent.png",
+  "/src/assets/Orchestration.png",
+  "/src/assets/Q&A Agent.png",
+  "/src/assets/Calendar Agent.png",
 ];
 
 const Index = () => {
@@ -48,7 +48,7 @@ const Index = () => {
             }}
           >
             <img
-              src="/matt-yang.png"
+              src="/src/assets/matt-yang.png"
               alt="Matt Yang smiling with pizzas"
               className="w-full h-full object-cover rounded-2xl"
               style={{ background: "#f8f6f3" }}

@@ -53,44 +53,6 @@ export const ChatWindow: React.FC = () => {
       `;
       document.body.appendChild(script);
     }
-
-    // Robustly prevent page scroll when pressing Enter in the n8n chat input
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement | null;
-      if (
-        target &&
-        (target.tagName === "INPUT" || target.tagName === "TEXTAREA") &&
-        target.closest("#n8n-chat-fullscreen")
-      ) {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          // Also try to stop propagation in case n8n listens globally
-          e.stopPropagation();
-          return false;
-        }
-      }
-    };
-
-    // Prevent scroll event when chat input is focused
-    const handleScroll = (e: Event) => {
-      const active = document.activeElement as HTMLElement | null;
-      if (
-        active &&
-        (active.tagName === "INPUT" || active.tagName === "TEXTAREA") &&
-        active.closest("#n8n-chat-fullscreen")
-      ) {
-        window.scrollTo(0, 0);
-        e.preventDefault();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown, { capture: true });
-    window.addEventListener("scroll", handleScroll, { passive: false });
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown, { capture: true });
-      window.removeEventListener("scroll", handleScroll);
-    };
   }, []);
 
   return (
