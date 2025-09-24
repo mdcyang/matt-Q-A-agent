@@ -1,5 +1,7 @@
 import { ChatWindow } from "@/components/ChatWindow";
 
+const IMAGE_BOX_SIZE = 500; // px
+
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center bg-[#f8f6f3] py-8">
@@ -19,17 +21,44 @@ const Index = () => {
       </header>
       <main className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-5xl mx-auto">
         <div className="flex-1 flex items-center justify-center">
-          <div className="bg-white rounded-2xl shadow-xl border-4 border-white overflow-hidden max-w-[420px] w-full">
+          <div
+            className="bg-white rounded-2xl shadow-xl border-4 border-white overflow-hidden"
+            style={{
+              width: IMAGE_BOX_SIZE,
+              height: IMAGE_BOX_SIZE,
+              minWidth: IMAGE_BOX_SIZE,
+              minHeight: IMAGE_BOX_SIZE,
+              maxWidth: IMAGE_BOX_SIZE,
+              maxHeight: IMAGE_BOX_SIZE,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <img
               src="/src/assets/matt-yang.png"
               alt="Matt Yang smiling with pizzas"
-              className="w-full h-[420px] object-contain"
+              className="w-full h-full object-cover"
               style={{ background: "#f8f6f3" }}
             />
           </div>
         </div>
         <div className="flex-1 flex items-center justify-center" id="chat">
-          <ChatWindow />
+          <div
+            style={{
+              width: IMAGE_BOX_SIZE,
+              height: IMAGE_BOX_SIZE,
+              minWidth: IMAGE_BOX_SIZE,
+              minHeight: IMAGE_BOX_SIZE,
+              maxWidth: IMAGE_BOX_SIZE,
+              maxHeight: IMAGE_BOX_SIZE,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ChatWindow />
+          </div>
         </div>
       </main>
     </div>
