@@ -35,4 +35,27 @@ export const ChatWindow: React.FC = () => {
     const stopScrollChain = (e: WheelEvent) => {
       e.stopPropagation();
     };
-    container.addEventListener("wheel", stopScrollChain, { passive:
+    container.addEventListener("wheel", stopScrollChain, { passive: false });
+
+    return () => {
+      container.removeEventListener("click", preventAnchorNav);
+      container.removeEventListener("wheel", stopScrollChain);
+    };
+  }, []);
+
+  // Placeholder chat UI
+  return (
+    <div
+      ref={chatContainerRef}
+      className="w-full h-full bg-gray-100 rounded-xl shadow-inner overflow-y-auto p-4 flex flex-col"
+      style={{ minHeight: 320, minWidth: 320, maxHeight: 560, maxWidth: 530 }}
+    >
+      {/* Replace this with your actual chat iframe or chat UI */}
+      <div className="flex-1 flex flex-col justify-end">
+        <div className="text-gray-500 text-center my-auto">
+          Chat agent coming soon!
+        </div>
+      </div>
+    </div>
+  );
+};
