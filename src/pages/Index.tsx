@@ -7,9 +7,9 @@ const IMAGE_BOX_MIN_WIDTH = 320;
 const IMAGE_BOX_MIN_HEIGHT = 320;
 
 const workflowImages = [
-  "/src/assets/Orchestration.png",
-  "/src/assets/Q&A Agent.png",
-  "/src/assets/Calendar Agent.png",
+  "/images/orchestration.png",
+  "/images/qna-agent.png",
+  "/images/calendar-agent.png",
 ];
 
 const Index = () => {
@@ -29,6 +29,7 @@ const Index = () => {
           </span>
         </h1>
       </header>
+
       <main
         className="flex flex-col md:flex-row items-center justify-center gap-8 w-full mx-auto px-2"
         style={{
@@ -48,13 +49,16 @@ const Index = () => {
             }}
           >
             <img
-              src="/src/assets/matt-yang.png"
+              src="/images/matt-yang.png"
               alt="Matt Yang smiling with pizzas"
               className="w-full h-full object-cover rounded-2xl"
               style={{ background: "#f8f6f3" }}
+              loading="eager"
+              decoding="async"
             />
           </div>
         </div>
+
         <div className="flex-1 flex items-center justify-center w-full" id="chat">
           <div
             className="w-full h-full flex items-center justify-center"
@@ -71,8 +75,10 @@ const Index = () => {
           </div>
         </div>
       </main>
+
       {/* Spacer for mobile: ensures info section never overlaps chat window */}
       <div className="block md:hidden" style={{ minHeight: 24 }}></div>
+
       {/* Info Section */}
       <section
         className="w-full flex flex-col items-center bg-white rounded-2xl shadow-lg mt-6 md:mt-12 px-4 sm:px-8 py-10"
@@ -86,6 +92,7 @@ const Index = () => {
         <p className="text-lg text-gray-700 mb-10 text-center max-w-3xl">
           I designed and deployed a multi-agent system that can both answer questions about me and assist with booking intro calls directly on my calendar.
         </p>
+
         <div className="w-full flex flex-col md:flex-row gap-10 mb-10">
           <div className="flex-1 bg-gray-50 rounded-xl p-6 shadow-sm">
             <h3 className="font-semibold text-xl mb-3 text-blue-700">Architecture</h3>
@@ -100,6 +107,7 @@ const Index = () => {
               The orchestration agent ensures that the correct tool is invoked based on user intent, rather than overloading one model with multiple roles.
             </p>
           </div>
+
           <div className="flex-1 bg-gray-50 rounded-xl p-6 shadow-sm">
             <h3 className="font-semibold text-xl mb-3 text-blue-700">Core Components</h3>
             <div className="mb-2">
@@ -128,6 +136,7 @@ const Index = () => {
             </div>
           </div>
         </div>
+
         <div className="w-full flex flex-col md:flex-row gap-10 mb-10">
           <div className="flex-1 bg-gray-50 rounded-xl p-6 shadow-sm">
             <h3 className="font-semibold text-xl mb-3 text-blue-700">Deployment</h3>
@@ -139,6 +148,7 @@ const Index = () => {
               This creates a seamless, interactive experience that demonstrates my technical abilities while making it easy for recruiters to connect with me.
             </p>
           </div>
+
           <div className="flex-1 bg-gray-50 rounded-xl p-6 shadow-sm">
             <h3 className="font-semibold text-xl mb-3 text-blue-700">Key Technical Highlights</h3>
             <ul className="list-disc list-inside text-gray-700 space-y-1">
@@ -150,6 +160,7 @@ const Index = () => {
             </ul>
           </div>
         </div>
+
         <div className="w-full flex flex-col items-center">
           <h3 className="font-semibold text-xl mb-6 text-blue-700">Agent Workflow</h3>
           <div className="flex flex-wrap justify-center gap-8">
@@ -160,6 +171,8 @@ const Index = () => {
                 alt={`Agent workflow step ${idx + 1}`}
                 className="rounded-lg shadow-md max-h-80 object-contain bg-gray-100 border border-gray-200"
                 style={{ maxWidth: 420 }}
+                loading="lazy"
+                decoding="async"
               />
             ))}
           </div>
