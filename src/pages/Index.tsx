@@ -2,7 +2,7 @@ import { ChatWindow } from "@/components/ChatWindow";
 
 // Responsive sizes: scale down smoothly, never cut off
 const IMAGE_BOX_MAX_WIDTH = 530;
-const IMAGE_BOX_MAX_HEIGHT = 1125;
+const IMAGE_BOX_MAX_HEIGHT = 560;
 const IMAGE_BOX_MIN_WIDTH = 320;
 const IMAGE_BOX_MIN_HEIGHT = 320;
 
@@ -40,7 +40,7 @@ const Index = () => {
             className="bg-white rounded-2xl shadow-xl border-4 border-white overflow-hidden flex items-center justify-center"
             style={{
               width: "clamp(320px, 45vw, 530px)",
-              height: "clamp(320px, 63vw, 1125px)",
+              height: "clamp(320px, 63vw, 560px)",
               minWidth: IMAGE_BOX_MIN_WIDTH,
               minHeight: IMAGE_BOX_MIN_HEIGHT,
               maxWidth: IMAGE_BOX_MAX_WIDTH,
@@ -50,7 +50,7 @@ const Index = () => {
             <img
               src="/src/assets/matt-yang.png"
               alt="Matt Yang smiling with pizzas"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-2xl"
               style={{ background: "#f8f6f3" }}
             />
           </div>
@@ -60,7 +60,7 @@ const Index = () => {
             className="w-full h-full flex items-center justify-center"
             style={{
               width: "clamp(320px, 45vw, 530px)",
-              height: "clamp(320px, 63vw, 1125px)",
+              height: "clamp(320px, 63vw, 560px)",
               minWidth: IMAGE_BOX_MIN_WIDTH,
               minHeight: IMAGE_BOX_MIN_HEIGHT,
               maxWidth: IMAGE_BOX_MAX_WIDTH,
@@ -71,9 +71,11 @@ const Index = () => {
           </div>
         </div>
       </main>
+      {/* Spacer for mobile: ensures info section never overlaps chat window */}
+      <div className="block md:hidden" style={{ minHeight: 24 }}></div>
       {/* Info Section */}
       <section
-        className="w-full flex flex-col items-center bg-white rounded-2xl shadow-lg mt-12 px-4 sm:px-8 py-10"
+        className="w-full flex flex-col items-center bg-white rounded-2xl shadow-lg mt-6 md:mt-12 px-4 sm:px-8 py-10"
         style={{
           maxWidth: `min(100vw, ${2 * IMAGE_BOX_MAX_WIDTH + 64}px)`,
         }}

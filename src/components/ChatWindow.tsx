@@ -56,25 +56,30 @@ export const ChatWindow: React.FC = () => {
   }, []);
 
   return (
-    <Card className="w-full h-full flex flex-col"
+    <Card
+      className="w-full h-full flex flex-col rounded-2xl shadow-xl"
       style={{
         maxWidth: 530,
-        maxHeight: 1125,
+        maxHeight: 560,
         minWidth: 320,
         minHeight: 320,
         width: "clamp(320px, 45vw, 530px)",
-        height: "clamp(320px, 63vw, 1125px)",
+        height: "clamp(320px, 63vw, 560px)",
+        boxShadow:
+          "0 4px 24px 0 rgba(59,130,246,0.10), 0 0 0 4px rgba(59,130,246,0.08), 0 2px 8px 0 rgba(0,0,0,0.08)",
+        borderRadius: "1rem",
       }}
     >
       <CardContent className="p-0 flex-1 flex flex-col">
         <div
           id="n8n-chat-fullscreen"
           ref={chatContainerRef}
-          className="w-full h-full bg-white"
+          className="w-full h-full bg-white rounded-2xl"
           style={{
             height: "100%",
             minHeight: 320,
-            maxHeight: 1125,
+            maxHeight: 560,
+            borderRadius: "1rem",
           }}
         />
       </CardContent>
