@@ -7,9 +7,9 @@ const IMAGE_BOX_MIN_WIDTH = 320;
 const IMAGE_BOX_MIN_HEIGHT = 320;
 
 const workflowImages = [
-  "/Orchestration.png",
-  "/Q&A Agent.png",
-  "/Calendar Agent.png",
+  "/orchestration.png",
+  "/qna-agent.png",
+  "/calendar-agent.png",
 ];
 
 const Index = () => {
