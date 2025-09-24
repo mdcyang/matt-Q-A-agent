@@ -1,7 +1,7 @@
 import { ChatWindow } from "@/components/ChatWindow";
 
 // Responsive sizes: scale down smoothly, never cut off
-const IMAGE_BOX_MAX_WIDTH = 800;
+const IMAGE_BOX_MAX_WIDTH = 530;
 const IMAGE_BOX_MAX_HEIGHT = 1125;
 const IMAGE_BOX_MIN_WIDTH = 320;
 const IMAGE_BOX_MIN_HEIGHT = 320;
@@ -29,7 +29,8 @@ const Index = () => {
           </span>
         </h1>
       </header>
-      <main className="flex flex-col md:flex-row items-center justify-center gap-8 w-full mx-auto px-2"
+      <main
+        className="flex flex-col md:flex-row items-center justify-center gap-8 w-full mx-auto px-2"
         style={{
           maxWidth: `min(100vw, ${2 * IMAGE_BOX_MAX_WIDTH + 64}px)`,
         }}
@@ -38,7 +39,7 @@ const Index = () => {
           <div
             className="bg-white rounded-2xl shadow-xl border-4 border-white overflow-hidden flex items-center justify-center"
             style={{
-              width: "clamp(320px, 45vw, 800px)",
+              width: "clamp(320px, 45vw, 530px)",
               height: "clamp(320px, 63vw, 1125px)",
               minWidth: IMAGE_BOX_MIN_WIDTH,
               minHeight: IMAGE_BOX_MIN_HEIGHT,
@@ -58,7 +59,7 @@ const Index = () => {
           <div
             className="w-full h-full flex items-center justify-center"
             style={{
-              width: "clamp(320px, 45vw, 800px)",
+              width: "clamp(320px, 45vw, 530px)",
               height: "clamp(320px, 63vw, 1125px)",
               minWidth: IMAGE_BOX_MIN_WIDTH,
               minHeight: IMAGE_BOX_MIN_HEIGHT,

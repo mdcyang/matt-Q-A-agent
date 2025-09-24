@@ -58,11 +58,11 @@ export const ChatWindow: React.FC = () => {
   return (
     <Card className="w-full h-full flex flex-col"
       style={{
-        maxWidth: 800,
+        maxWidth: 530,
         maxHeight: 1125,
         minWidth: 320,
         minHeight: 320,
-        width: "clamp(320px, 45vw, 800px)",
+        width: "clamp(320px, 45vw, 530px)",
         height: "clamp(320px, 63vw, 1125px)",
       }}
     >
