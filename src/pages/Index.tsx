@@ -7,6 +7,7 @@ const IMAGE_BOX_MIN_WIDTH = 320;
 const IMAGE_BOX_MIN_HEIGHT = 320;
 
 const workflowImages = [
+  // If you kept local assets, prefer /public and root-relative paths like:
   "/images/orchestration.png",
   "/images/qna-agent.png",
   "/images/calendar-agent.png",
@@ -19,13 +20,18 @@ const Index = () => {
         <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-[#1a1a1a] drop-shadow-lg">
           I'm Matt Yang <span className="inline-block animate-bounce">🍕</span>
           <span className="ml-2 text-xl font-semibold">
-            <a
-              href="#chat"
+            <button
+              type="button"
+              onClick={() =>
+                document
+                  .getElementById("chat")
+                  ?.scrollIntoView({ behavior: "auto", block: "start" })
+              }
               className="text-[#3b82f6] hover:underline"
               style={{ textDecorationThickness: 2 }}
             >
               and this is my Agent
-            </a>
+            </button>
           </span>
         </h1>
       </header>
