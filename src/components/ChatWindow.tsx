@@ -1,78 +1,88 @@
 import React, { useEffect, useRef } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+
+const N8N_CSS_ID = "n8n-chat-style";
+const N8N_SCRIPT_ID = "n8n-chat-script";
+const N8N_WEBHOOK_URL =
+  "https://mattyang8.app.n8n.cloud/webhook/9f9f23bd-17fc-40e8-bd10-f53c42aee42f/chat";
 
 export const ChatWindow: React.FC = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Keep the chat container scrolled to bottom when new nodes appear,
-  // but only if the user is already near the bottom.
   useEffect(() => {
-    const container = chatContainerRef.current;
-    if (!container) return;
+    // Inject CSS if not already present
+    if (!document.getElementById(N8N_CSS_ID)) {
+      const link = document.createElement("link");
+      link.id = N8N_CSS_ID;
+      link.rel = "stylesheet";
+      link.href = "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css";
+      document.head.appendChild(link);
+    }
 
-    const observer = new MutationObserver(() => {
-      const nearBottom =
-        container.scrollHeight - container.scrollTop - container.clientHeight < 40;
-      if (nearBottom) {
-        container.scrollTop = container.scrollHeight;
-      }
-    });
+    // Remove any previous script to allow re-initialization if needed
+    const prevScript = document.getElementById(N8N_SCRIPT_ID);
+    if (prevScript) {
+      prevScript.remove();
+    }
 
-    observer.observe(container, { childList: true, subtree: true });
-    return () => observer.disconnect();
-  }, []);
-
-  // Neutralize hash/anchor behaviors that cause page jumps,
-  // without blocking normal scrolling.
-  useEffect(() => {
-    const container = chatContainerRef.current;
-    if (!container) return;
-
-    // Stop in-widget "#" links from changing the page scroll position
-    const preventAnchorNav = (e: MouseEvent) => {
-      const target = e.target as HTMLElement | null;
-      const anchor = target?.closest('a[href^="#"]') as HTMLAnchorElement | null;
-      if (anchor && container.contains(anchor)) {
-        e.preventDefault();
-      }
-    };
-    container.addEventListener("click", preventAnchorNav);
-
-    // If any script (widget or otherwise) sets a location hash, clear it immediately
-    const onHashChange = () => {
-      if (location.hash) {
-        history.replaceState(null, "", window.location.pathname + window.location.search);
-      }
-    };
-    window.addEventListener("hashchange", onHashChange);
-
-    return () => {
-      container.removeEventListener("click", preventAnchorNav);
-      window.removeEventListener("hashchange", onHashChange);
-    };
+    // Inject script if not already present
+    if (chatContainerRef.current) {
+      const script = document.createElement("script");
+      script.id = N8N_SCRIPT_ID;
+      script.type = "module";
+      script.innerHTML = `
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+        createChat({
+          webhookUrl: '${N8N_WEBHOOK_URL}',
+          mode: "fullscreen",
+          target: "#n8n-chat-fullscreen",
+          initialMessages: [
+            "Hi there! 👋",
+            "What do you want to know about Matt or when do you want to talk with him?"
+          ],
+          i18n: {
+            en: {
+              title: "Hi there! 👋",
+              subtitle: "Matt built me to answer your questions or book an intro call.",
+              footer: "",
+              getStarted: "New Conversation",
+              inputPlaceholder: "Type your question.."
+            }
+          }
+        });
+      `;
+      document.body.appendChild(script);
+    }
   }, []);
 
   return (
-    <div
-      id="n8n-chat-fullscreen"
-      ref={chatContainerRef}
-      className="w-full h-full bg-white rounded-2xl"
+    <Card
+      className="w-full h-full flex flex-col shadow-xl"
       style={{
-        height: "100%",
-        minHeight: 320,
+        maxWidth: 530,
         maxHeight: 560,
-        // Allow normal scroll chaining so you can scroll the page even with the
-        // chat input focused. We’re only preventing jump-on-Enter, not scrolling.
-        overscrollBehavior: "auto",
+        minWidth: 320,
+        minHeight: 320,
+        width: "clamp(320px, 45vw, 530px)",
+        height: "clamp(320px, 63vw, 560px)",
+        boxShadow:
+          "0 4px 24px 0 rgba(0,0,0,0.10), 0 2px 8px 0 rgba(0,0,0,0.08)",
+        borderRadius: 0,
       }}
     >
-      <iframe
-        src="https://n8n-chat.vercel.app"
-        title="Chat Window"
-        className="w-full h-full border-0 rounded-2xl"
-        allow="clipboard-write; clipboard-read"
-      />
-    </div>
+      <CardContent className="p-0 flex-1 flex flex-col">
+        <div
+          id="n8n-chat-fullscreen"
+          ref={chatContainerRef}
+          className="w-full h-full bg-white"
+          style={{
+            height: "100%",
+            minHeight: 320,
+            maxHeight: 560,
+            borderRadius: 0,
+          }}
+        />
+      </CardContent>
+    </Card>
   );
 };
-
-export default ChatWindow;

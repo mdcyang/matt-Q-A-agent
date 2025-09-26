@@ -36,18 +36,15 @@ const Index = () => {
           maxWidth: `min(100vw, ${2 * IMAGE_BOX_MAX_WIDTH + 64}px)`,
         }}
       >
-        <div className="flex-1 flex items-center justify-center w-full mb-8 md:mb-0">
+        <div className="flex-1 flex items-center justify-center w-full">
           <div
-            className="
-              bg-white rounded-2xl shadow-xl border-4 border-white overflow-hidden flex items-center justify-center
-              w-full
-              sm:w-[90vw] sm:max-w-[530px]
-              "
+            className="bg-white rounded-2xl shadow-xl border-4 border-white overflow-hidden flex items-center justify-center"
             style={{
-              width: "100%",
-              maxWidth: IMAGE_BOX_MAX_WIDTH,
-              minWidth: 0,
+              width: "clamp(320px, 45vw, 530px)",
+              height: "clamp(320px, 63vw, 560px)",
+              minWidth: IMAGE_BOX_MIN_WIDTH,
               minHeight: IMAGE_BOX_MIN_HEIGHT,
+              maxWidth: IMAGE_BOX_MAX_WIDTH,
               maxHeight: IMAGE_BOX_MAX_HEIGHT,
             }}
           >
@@ -64,16 +61,13 @@ const Index = () => {
 
         <div className="flex-1 flex items-center justify-center w-full" id="chat">
           <div
-            className="
-              w-full h-full flex items-center justify-center
-              sm:w-full
-              md:w-[90vw] md:max-w-[530px]
-              mb-8 md:mb-0
-            "
+            className="w-full h-full flex items-center justify-center"
             style={{
-              width: "100%",
+              width: "clamp(320px, 45vw, 530px)",
+              height: "clamp(320px, 63vw, 560px)",
+              minWidth: IMAGE_BOX_MIN_WIDTH,
+              minHeight: IMAGE_BOX_MIN_HEIGHT,
               maxWidth: IMAGE_BOX_MAX_WIDTH,
-              minWidth: 0,
               maxHeight: IMAGE_BOX_MAX_HEIGHT,
             }}
           >
@@ -83,7 +77,7 @@ const Index = () => {
       </main>
 
       {/* Spacer for mobile: ensures info section never overlaps chat window */}
-      <div className="block md:hidden" style={{ minHeight: 56 }}></div>
+      <div className="block md:hidden" style={{ minHeight: 24 }}></div>
 
       {/* Info Section */}
       <section
