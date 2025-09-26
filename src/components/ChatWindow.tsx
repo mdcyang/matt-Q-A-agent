@@ -80,6 +80,9 @@ export const ChatWindow: React.FC = () => {
             minHeight: 320,
             maxHeight: 560,
             borderRadius: 0,
+            overflow: "auto",
+            overscrollBehavior: "contain",
+            WebkitOverflowScrolling: "touch",
           }}
         />
       </CardContent>
