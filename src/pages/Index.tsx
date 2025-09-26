@@ -41,7 +41,7 @@ const Index = () => {
             className="
               bg-white rounded-2xl shadow-xl border-4 border-white overflow-hidden flex items-center justify-center
               w-full
-              sm:w-[90vw] sm:max-w-[${IMAGE_BOX_MAX_WIDTH}px]
+              sm:w-[90vw] sm:max-w-[530px]
               "
             style={{
               width: "100%",
@@ -66,13 +66,16 @@ const Index = () => {
           <div
             className="
               w-full h-full flex items-center justify-center
-              sm:w-[90vw] sm:max-w-[530px]
+              sm:w-full
+              md:w-[90vw] md:max-w-[530px]
+              mb-8 md:mb-0
             "
             style={{
               width: "100%",
               maxWidth: IMAGE_BOX_MAX_WIDTH,
               minWidth: 0,
-              minHeight: IMAGE_BOX_MIN_HEIGHT,
+              // Remove minHeight on mobile to allow shrinking
+              minHeight: undefined,
               maxHeight: IMAGE_BOX_MAX_HEIGHT,
             }}
           >
@@ -82,7 +85,8 @@ const Index = () => {
       </main>
 
       {/* Spacer for mobile: ensures info section never overlaps chat window */}
-      <div className="block md:hidden" style={{ minHeight: 40 }}></div>
+      {/* Increased minHeight for extra safety */}
+      <div className="block md:hidden" style={{ minHeight: 56 }}></div>
 
       {/* Info Section */}
       <section
