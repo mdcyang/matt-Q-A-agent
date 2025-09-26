@@ -103,6 +103,12 @@
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
   }
+
+  /* Hide n8n floating chat button if it appears */
+  .n8n-chat-button,
+  .n8n-chat-widget {
+    display: none !important;
+  }
 }
 
 @layer base {
@@ -112,6 +118,5 @@
 
   body {
     @apply bg-background text-foreground;
-    /* Removed overflow: hidden to allow page scrolling */
   }
 }
