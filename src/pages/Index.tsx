@@ -38,13 +38,9 @@ const Index = () => {
       >
         <div className="flex-1 flex items-center justify-center w-full">
           <div
-            className="
-              bg-white rounded-2xl shadow-xl border-4 border-white overflow-hidden flex items-center justify-center
-              w-full
-              max-w-[95vw] md:max-w-[530px]
-              min-w-0
-            "
+            className="bg-white rounded-2xl shadow-xl border-4 border-white overflow-hidden flex items-center justify-center"
             style={{
+              width: "clamp(320px, 45vw, 530px)",
               height: "clamp(320px, 63vw, 560px)",
               minWidth: IMAGE_BOX_MIN_WIDTH,
               minHeight: IMAGE_BOX_MIN_HEIGHT,
@@ -65,13 +61,9 @@ const Index = () => {
 
         <div className="flex-1 flex items-center justify-center w-full" id="chat">
           <div
-            className="
-              w-full
-              max-w-[95vw] md:max-w-[530px]
-              min-w-0
-              h-full flex items-center justify-center
-            "
+            className="w-full h-full flex items-center justify-center"
             style={{
+              width: "clamp(320px, 45vw, 530px)",
               height: "clamp(320px, 63vw, 560px)",
               minWidth: IMAGE_BOX_MIN_WIDTH,
               minHeight: IMAGE_BOX_MIN_HEIGHT,
@@ -85,7 +77,7 @@ const Index = () => {
       </main>
 
       {/* Spacer for mobile: ensures info section never overlaps chat window */}
-      <div className="block md:hidden" style={{ minHeight: 40, width: "100%" }}></div>
+      <div className="block md:hidden" style={{ minHeight: 24 }}></div>
 
       {/* Info Section */}
       <section

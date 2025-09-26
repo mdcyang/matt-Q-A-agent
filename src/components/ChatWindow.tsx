@@ -5,15 +5,11 @@ const N8N_CSS_ID = "n8n-chat-style";
 const N8N_SCRIPT_ID = "n8n-chat-script";
 const N8N_WEBHOOK_URL =
   "https://mattyang8.app.n8n.cloud/webhook/9f9f23bd-17fc-40e8-bd10-f53c42aee42f/chat";
-const N8N_CONTAINER_ID = "n8n-chat-embedded";
 
 export const ChatWindow: React.FC = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Remove any previous n8n chat widget (floating button)
-    document.querySelectorAll(".n8n-chat-widget, .n8n-chat-button").forEach((el) => el.remove());
-
     // Inject CSS if not already present
     if (!document.getElementById(N8N_CSS_ID)) {
       const link = document.createElement("link");
@@ -29,48 +25,34 @@ export const ChatWindow: React.FC = () => {
       prevScript.remove();
     }
 
-    // Add a short delay to ensure the container is mounted
-    const timeout = setTimeout(() => {
-      // Remove any previous n8n chat widget (again, just in case)
-      document.querySelectorAll(".n8n-chat-widget, .n8n-chat-button").forEach((el) => el.remove());
-
-      // Inject script if container is present
-      if (chatContainerRef.current) {
-        const script = document.createElement("script");
-        script.id = N8N_SCRIPT_ID;
-        script.type = "module";
-        script.innerHTML = `
-          import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-          createChat({
-            webhookUrl: '${N8N_WEBHOOK_URL}',
-            mode: "embedded",
-            target: "#${N8N_CONTAINER_ID}",
-            initialMessages: [
-              "Hi there! 👋",
-              "What do you want to know about Matt or when do you want to talk with him?"
-            ],
-            i18n: {
-              en: {
-                title: "Hi there! 👋",
-                subtitle: "Matt built me to answer your questions or book an intro call.",
-                footer: "",
-                getStarted: "New Conversation",
-                inputPlaceholder: "Type your question.."
-              }
+    // Inject script if not already present
+    if (chatContainerRef.current) {
+      const script = document.createElement("script");
+      script.id = N8N_SCRIPT_ID;
+      script.type = "module";
+      script.innerHTML = `
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+        createChat({
+          webhookUrl: '${N8N_WEBHOOK_URL}',
+          mode: "fullscreen",
+          target: "#n8n-chat-fullscreen",
+          initialMessages: [
+            "Hi there! 👋",
+            "What do you want to know about Matt or when do you want to talk with him?"
+          ],
+          i18n: {
+            en: {
+              title: "Hi there! 👋",
+              subtitle: "Matt built me to answer your questions or book an intro call.",
+              footer: "",
+              getStarted: "New Conversation",
+              inputPlaceholder: "Type your question.."
             }
-          });
-        `;
-        document.body.appendChild(script);
-      }
-    }, 100); // 100ms delay
-
-    return () => {
-      clearTimeout(timeout);
-      // Clean up any n8n chat widget and script
-      document.querySelectorAll(".n8n-chat-widget, .n8n-chat-button").forEach((el) => el.remove());
-      const prevScript = document.getElementById(N8N_SCRIPT_ID);
-      if (prevScript) prevScript.remove();
-    };
+          }
+        });
+      `;
+      document.body.appendChild(script);
+    }
   }, []);
 
   return (
@@ -90,7 +72,7 @@ export const ChatWindow: React.FC = () => {
     >
       <CardContent className="p-0 flex-1 flex flex-col">
         <div
-          id={N8N_CONTAINER_ID}
+          id="n8n-chat-fullscreen"
           ref={chatContainerRef}
           className="w-full h-full bg-white"
           style={{
@@ -98,11 +80,6 @@ export const ChatWindow: React.FC = () => {
             minHeight: 320,
             maxHeight: 560,
             borderRadius: 0,
-            overflow: "auto",
-            overscrollBehavior: "contain",
-            WebkitOverflowScrolling: "touch",
-            display: "flex",
-            flexDirection: "column",
           }}
         />
       </CardContent>
