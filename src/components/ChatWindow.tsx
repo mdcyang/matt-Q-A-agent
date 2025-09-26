@@ -34,7 +34,7 @@ export const ChatWindow: React.FC = () => {
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
         createChat({
           webhookUrl: '${N8N_WEBHOOK_URL}',
-          mode: "fullscreen",
+          mode: "embedded",
           target: "#n8n-chat-fullscreen",
           initialMessages: [
             "Hi there! 👋",
@@ -83,6 +83,8 @@ export const ChatWindow: React.FC = () => {
             overflow: "auto",
             overscrollBehavior: "contain",
             WebkitOverflowScrolling: "touch",
+            display: "flex",
+            flexDirection: "column",
           }}
         />
       </CardContent>
