@@ -53,6 +53,68 @@ export const ChatWindow: React.FC = () => {
       `;
       document.body.appendChild(script);
     }
+
+    // --- Prevent window scroll when chat input is focused ---
+    let inputEl: HTMLInputElement | null = null;
+    let observer: MutationObserver | null = null;
+
+    function setBodyNoScroll(enable: boolean) {
+      if (enable) {
+        document.body.style.overflow = "hidden";
+        document.body.style.touchAction = "none";
+      } else {
+        document.body.style.overflow = "";
+        document.body.style.touchAction = "";
+      }
+    }
+
+    function handleFocus() {
+      setBodyNoScroll(true);
+    }
+    function handleBlur() {
+      setBodyNoScroll(false);
+    }
+
+    function attachInputListeners() {
+      // n8n chat input is usually: input[type="text"] or textarea inside #n8n-chat-fullscreen
+      const container = document.getElementById("n8n-chat-fullscreen");
+      if (!container) return;
+      // Try input first, then textarea
+      inputEl =
+        container.querySelector("input[type='text']") ||
+        container.querySelector("textarea");
+      if (inputEl) {
+        inputEl.addEventListener("focus", handleFocus);
+        inputEl.addEventListener("blur", handleBlur);
+      }
+    }
+
+    function detachInputListeners() {
+      if (inputEl) {
+        inputEl.removeEventListener("focus", handleFocus);
+        inputEl.removeEventListener("blur", handleBlur);
+      }
+    }
+
+    // Observe for the chat input to appear
+    observer = new MutationObserver(() => {
+      detachInputListeners();
+      attachInputListeners();
+    });
+
+    const chatRoot = document.getElementById("n8n-chat-fullscreen");
+    if (chatRoot) {
+      observer.observe(chatRoot, { childList: true, subtree: true });
+      // Try to attach immediately in case input is already there
+      attachInputListeners();
+    }
+
+    // Clean up on unmount
+    return () => {
+      detachInputListeners();
+      if (observer && chatRoot) observer.disconnect();
+      setBodyNoScroll(false);
+    };
   }, []);
 
   return (
