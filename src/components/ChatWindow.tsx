@@ -53,6 +53,61 @@ export const ChatWindow: React.FC = () => {
       `;
       document.body.appendChild(script);
     }
+
+    // --- Prevent window scroll when chat input is focused ---
+    let lastOverflow: string | null = null;
+    let inputEl: HTMLInputElement | null = null;
+    let observer: MutationObserver | null = null;
+
+    function lockScroll() {
+      if (lastOverflow === null) {
+        lastOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+      }
+    }
+    function unlockScroll() {
+      if (lastOverflow !== null) {
+        document.body.style.overflow = lastOverflow;
+        lastOverflow = null;
+      }
+    }
+
+    function attachInputListeners() {
+      // Try to find the input inside the chat
+      if (!chatContainerRef.current) return;
+      // n8n chat input is usually: input[type="text"], but could be textarea
+      const input =
+        chatContainerRef.current.querySelector("input[type='text'], textarea");
+      if (input && (input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement)) {
+        inputEl = input;
+        input.addEventListener("focus", lockScroll);
+        input.addEventListener("blur", unlockScroll);
+      }
+    }
+
+    // Use MutationObserver to wait for the chat input to appear
+    if (chatContainerRef.current) {
+      observer = new MutationObserver(() => {
+        attachInputListeners();
+      });
+      observer.observe(chatContainerRef.current, {
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    // Try to attach immediately in case chat loads fast
+    setTimeout(attachInputListeners, 1000);
+
+    // Cleanup
+    return () => {
+      if (inputEl) {
+        inputEl.removeEventListener("focus", lockScroll);
+        inputEl.removeEventListener("blur", unlockScroll);
+      }
+      if (observer) observer.disconnect();
+      unlockScroll();
+    };
   }, []);
 
   return (
