@@ -53,8 +53,24 @@ export const ChatWindow: React.FC = () => {
       `;
       document.body.appendChild(script);
     }
+
+    // Scroll lock: prevent scroll events from bubbling up
+    const chatDiv = chatContainerRef.current;
+    if (chatDiv) {
+      const stopScroll = (e: Event) => {
+        e.stopPropagation();
+      };
+      chatDiv.addEventListener("wheel", stopScroll, { passive: false });
+      chatDiv.addEventListener("touchmove", stopScroll, { passive: false });
+      return () => {
+        chatDiv.removeEventListener("wheel", stopScroll);
+        chatDiv.removeEventListener("touchmove", stopScroll);
+      };
+    }
   }, []);
 
+  // Prevent the chat window from causing the page to scroll
+  // by setting overscrollBehavior to contain
   return (
     <Card
       className="w-full h-full flex flex-col shadow-xl"
@@ -68,6 +84,7 @@ export const ChatWindow: React.FC = () => {
         boxShadow:
           "0 4px 24px 0 rgba(0,0,0,0.10), 0 2px 8px 0 rgba(0,0,0,0.08)",
         borderRadius: 0,
+        overscrollBehavior: "contain", // Prevent scroll chaining
       }}
     >
       <CardContent className="p-0 flex-1 flex flex-col">
@@ -80,6 +97,7 @@ export const ChatWindow: React.FC = () => {
             minHeight: 320,
             maxHeight: 560,
             borderRadius: 0,
+            overscrollBehavior: "contain", // Prevent scroll chaining
           }}
         />
       </CardContent>
