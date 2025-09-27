@@ -79,7 +79,7 @@ const Index = () => {
       {/* Info Section */}
       <section
         className="w-full flex flex-col items-center bg-white rounded-2xl shadow-lg px-4 sm:px-8 py-10
-          mt-[calc(100vw*1.2)] sm:mt-24 md:mt-12"
+          mt-[calc(100vw*0.36)] sm:mt-24 md:mt-12"
         style={{
           maxWidth: `min(100vw, ${2 * IMAGE_BOX_MAX_WIDTH + 64}px)`,
         }}
