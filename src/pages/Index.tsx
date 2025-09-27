@@ -61,7 +61,7 @@ const Index = () => {
 
         <div className="flex-1 flex items-center justify-center w-full" id="chat">
           <div
-            className="w-full h-full flex items-center justify-center"
+            className="w-full h-full flex items-center justify-center mb-8 md:mb-0"
             style={{
               width: "clamp(320px, 45vw, 530px)",
               height: "clamp(320px, 63vw, 560px)",
@@ -76,8 +76,7 @@ const Index = () => {
         </div>
       </main>
 
-      {/* Spacer for mobile: ensures info section never overlaps chat window */}
-      <div className="block md:hidden" style={{ minHeight: 24 }}></div>
+      {/* Removed spacer for mobile, now handled by margin-bottom on chat window */}
 
       {/* Info Section */}
       <section
