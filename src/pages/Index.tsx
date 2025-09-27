@@ -76,11 +76,9 @@ const Index = () => {
         </div>
       </main>
 
-      {/* Removed spacer for mobile, now handled by margin-bottom on chat window */}
-
       {/* Info Section */}
       <section
-        className="w-full flex flex-col items-center bg-white rounded-2xl shadow-lg mt-6 md:mt-12 px-4 sm:px-8 py-10"
+        className="w-full flex flex-col items-center bg-white rounded-2xl shadow-lg mt-24 md:mt-12 px-4 sm:px-8 py-10"
         style={{
           maxWidth: `min(100vw, ${2 * IMAGE_BOX_MAX_WIDTH + 64}px)`,
         }}
