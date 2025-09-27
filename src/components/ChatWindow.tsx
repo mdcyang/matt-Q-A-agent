@@ -126,7 +126,8 @@ export const ChatWindow: React.FC = () => {
         minWidth: 320,
         minHeight: 320,
         width: "clamp(320px, 45vw, 530px)",
-        height: "clamp(320px, 63vw, 560px)",
+        // Responsive maxHeight: always leave at least 120px below for info section
+        maxHeight: "calc(100vh - 120px)",
         boxShadow:
           "0 4px 24px 0 rgba(0,0,0,0.10), 0 2px 8px 0 rgba(0,0,0,0.08)",
         borderRadius: 0,
@@ -140,7 +141,8 @@ export const ChatWindow: React.FC = () => {
           style={{
             height: "100%",
             minHeight: 320,
-            maxHeight: 560,
+            // Responsive maxHeight: always leave at least 120px below for info section
+            maxHeight: "calc(100vh - 120px)",
             borderRadius: 0,
           }}
         />
